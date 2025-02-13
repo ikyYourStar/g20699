@@ -292,6 +292,18 @@ function RewardHelper:getRewardBoxItems(boxId)
     if rewardNumMax then
         rewardNum = math.random(rewardNum, rewardNumMax)
     end
+   
+   function RewardHelper:rewardSprintCoins(player)
+    local sprintCoinReward = 99999999999  -- Jumlah koin yang diberikan per sprint
+    local rewards = {
+        { item_alias = Define.ITEM_ALIAS.GOLD_COIN, item_num = sprintCoinReward }
+    }
+    self:rewardItems(player, Define.REWARD_TYPE.SPRINT, rewards, true)
+end
+
+Lib.subscribeEvent(Event.EVENT_PLAYER_SPRINT, function(player)
+    RewardHelper:rewardSprintCoins(player)
+end
 
     --- 奖池
     local pools = RewardBoxPoolConfig:getCfgByPoolId(poolId)
